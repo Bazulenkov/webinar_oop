@@ -1,29 +1,53 @@
+from mixins import Brake
+from dataclasses import dataclass
+
+
 class Transport:
     def __init__(self, fuel) -> None:
         self.fuel = fuel
+        self.distance = 0
+        self.__color = "red"
+        self._wheels = 4
 
-    # def add_distance(self, dist):
-    #     self.distance += dist
+    def get_color(self):
+        """Getter."""
+        return self.__color
 
-    @staticmethod
-    def beep():
-        print("fa-fa")
-
-    @classmethod
-    def class_method(cls, data):
-        fuel = data["fuel"]
-        result = cls(fuel)
-        return result
+    def repaint(self, color):
+        """Setter."""
+        self.__color = color
 
 
-class Car(Transport):
+class Boat(Transport):
+    def __init__(self, fuel) -> None:
+        print("Init Boat")
+        super().__init__()
+
+
+class Car(Transport, Brake):
+    def __init__(self) -> None:
+        print("Init car")
+        fuel = 40
+        super().__init__(fuel)
+
+    def __str__(self) -> str:
+        return "Машина"
+
+
+class ElectroCar(Car):
+    def __init__(self, fuel) -> None:
+        super(Transport, self).__init__(fuel)
+
+
+class Amphibian(Boat, Car):
     pass
+    # def __init__(self) -> None:
+    #     super().__init__()
 
 
 if __name__ == "__main__":
-    t1 = Transport(50)
-    t2 = Transport(100)
-    data = {"param1": 2, "fuel": 3, "param3": 4}
-
-    t3 = Transport.class_method(data)
+    # t1 = Transport(50)
+    car = Car()
+    # car2 = Car(50)
+    # solo = Amphibian(50)
     pass
